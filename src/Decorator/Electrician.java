@@ -1,7 +1,7 @@
 package Decorator;
 
 // Concrete Component representing Electrician
-class Electrician implements ServiceProvider {
+public class Electrician implements ServiceProvider {
     private String name;
     private String phoneNumber;
     private float rating;

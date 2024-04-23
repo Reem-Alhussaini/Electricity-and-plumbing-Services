@@ -1,6 +1,6 @@
 package Decorator;
 
-class Plumber implements ServiceProvider {
+public class Plumber implements ServiceProvider {
     private String name;
     private String phoneNumber;
     private float rating;

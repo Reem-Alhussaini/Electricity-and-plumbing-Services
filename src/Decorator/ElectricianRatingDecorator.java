@@ -1,7 +1,7 @@
 package Decorator;
 
 // Concrete Decorator for Electrician rating functionality
-class ElectricianRatingDecorator extends RatingDecorator {
+public class ElectricianRatingDecorator extends RatingDecorator {
     public ElectricianRatingDecorator(ServiceProvider serviceProvider) {
         super(serviceProvider);
     }

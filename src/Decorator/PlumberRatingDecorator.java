@@ -1,7 +1,7 @@
 package Decorator;
 
 // Concrete Decorator for Plumber rating functionality
-class PlumberRatingDecorator extends RatingDecorator {
+public class PlumberRatingDecorator extends RatingDecorator {
     public PlumberRatingDecorator(ServiceProvider serviceProvider) {
         super(serviceProvider);
     }

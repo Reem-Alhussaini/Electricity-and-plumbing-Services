@@ -1,7 +1,7 @@
 package Decorator;
 
 // Decorator interface for rating functionality
-abstract class RatingDecorator implements ServiceProvider {
+public abstract class RatingDecorator implements ServiceProvider {
     protected ServiceProvider serviceProvider;
 
     public RatingDecorator(ServiceProvider serviceProvider) {

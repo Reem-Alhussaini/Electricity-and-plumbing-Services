@@ -1,6 +1,6 @@
 package Decorator;
 
-interface ServiceProvider {
+public interface ServiceProvider {
     String getName();
     String getPhoneNumber();
     float getRating();
