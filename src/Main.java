@@ -1,4 +1,9 @@
-package Decorator;
+import Decorator.Electrician;
+import Decorator.ElectricianRatingDecorator;
+
+import Factory.Appointment;
+import Factory.AppointmentFactory;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -13,5 +18,11 @@ public class Main {
 
         // Getting updated rating
         System.out.println("Electrician rating: " + ratedElectrician.getRating());
+
+
+        //Factory >> Appointment
+        AppointmentFactory factory = new AppointmentFactory();
+        Appointment appointment = factory.createAppointment("electrician");
+        appointment.schedule();
     }
 }
