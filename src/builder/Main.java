@@ -1,5 +1,5 @@
 
-package builder.builder;
+package builder;
 
 import java.util.Date;
 
