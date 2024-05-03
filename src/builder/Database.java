@@ -65,8 +65,8 @@ public class Database {
 
             String createUserTable = "CREATE TABLE user_info (" +
                     "name VARCHAR(255)," +
-                    "phone_number VARCHAR(20)," +
-                    "password VARCHAR(20)" +
+                    "phone_number VARCHAR(200)," +
+                    "password VARCHAR(200)" +
                     ")";
             st.executeUpdate(createUserTable);
             System.out.println("user_info Table created");
@@ -83,6 +83,8 @@ public class Database {
 
             String createTechnicianTable = "CREATE TABLE technician_info (" +
                     "name VARCHAR(255)," +
+                    "phoneNum VARCHAR(200)" +
+                    "type VARCHAR(200)" +
                     "available boolean" +
                     ")";
             st.executeUpdate(createTechnicianTable);
@@ -119,12 +121,13 @@ public class Database {
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              Statement st = con.createStatement()) {
 
-            String insertTechnicianTable = "INSERT INTO technician_info (name, available) VALUES " +
-                    "('jaleel', TRUE), " +
-                    "('abdulkareem', TRUE)," +
-                    "('jamal', TRUE)," +
-                    "('saeed', TRUE)," +
-                    "('ibrahim', TRUE)";
+            String insertTechnicianTable = "INSERT INTO technician_info (name, phoneNum, type, available) VALUES " +
+                    "('jaleel','0548888888', 'pulmer' ,TRUE), " +
+                    "('abdulkareem', '0548888888', 'pulmer', TRUE)," +
+                    "('jamal', '0548888888', 'pulmer', TRUE)," +
+                    "('saeed', '0548888888', 'electrition', TRUE)," +
+                    "('ibrahim', '0548888888', 'electrition', TRUE)";
+                    
             st.executeUpdate(insertTechnicianTable);
 
             System.out.println("records inserted into technician_info Table");
