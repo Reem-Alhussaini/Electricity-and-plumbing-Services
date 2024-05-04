@@ -21,8 +21,10 @@ public class Main {
 
 
         //Factory >> Appointment
+        String serviceType="";
+        String name="";
         AppointmentFactory factory = new AppointmentFactory();
-        Appointment appointment = factory.createAppointment("electrician");
+        Appointment appointment = factory.createAppointment(serviceType, name);
         appointment.schedule();
     }
 }

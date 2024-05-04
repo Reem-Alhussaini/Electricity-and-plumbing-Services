@@ -1,8 +1,9 @@
+package proxy;
 public class RealServiceAvailability implements ServiceAvailability {
     @Override
     public boolean isServiceAvailable(String serviceType) {
 
-        String employeestatus = ""; // take from database
+        String employeestatus = "Available";
         if (serviceType.equals("Electrical")){
             if (employeestatus.equals("Available")){
                 return true;
@@ -16,8 +17,8 @@ public class RealServiceAvailability implements ServiceAvailability {
             }
             return false;
         }
-
-        else 
+        else
             return false;
     }
+
 }
