@@ -13,7 +13,7 @@ public class Main {
         String price = "price"; 
 
         // Create an invoice
-        Invoice invoice = new Invoice.InvoiceBuilder()
+        Invoice invoice = new InvoiceBuilder()
                 .setName(name)
                 .setServiceProviderName(serviceProviderName)
                 .setService(service)
