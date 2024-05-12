@@ -1,4 +1,5 @@
-package proxy.src;
+package proxy;
+
 import java.sql.*;
 
 public class RealDataBase implements ServiceAvailability {

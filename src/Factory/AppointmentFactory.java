@@ -7,7 +7,7 @@ public class AppointmentFactory {
     String name;
 
     // Create a proxy instance
-    ServiceAvailabilityProxy proxy = new ServiceAvailabilityProxy("Plumber");
+    DataBaseProxy proxy = new DataBaseProxy("Plumber");
 
     // Check availability
     boolean isPlumberAvailable = proxy.isPlumberAvailable(name);
