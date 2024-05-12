@@ -1,3 +1,5 @@
+package proxy.src;
+
 import java.util.Scanner;
 
 public class Customer {

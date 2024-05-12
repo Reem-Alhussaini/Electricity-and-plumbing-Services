@@ -1,3 +1,5 @@
+package proxy.src;
+
 import java.sql.*;
 
 public class DataBaseProxy implements ServiceAvailability {
