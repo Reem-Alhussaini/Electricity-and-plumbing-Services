@@ -17,12 +17,24 @@ public class RealDataBase implements ServiceAvailability {
     private static final String DATABASE_NAME = "AnwarDB";
 
 
-    public RealDataBase() {
+    public RealDataBase(String serviceType) {
+        this.serviceType = serviceType;
+
         try {
             Connection con = DriverManager.getConnection(CON_URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void start(){
+        createDB();
+        createInvoiceTable();
+        createUserTable();
+        createTechnicianTable();
+        insertUserTable();
+        insertTechnicianTable();
+        insertInvoices();
     }
 
     private static void createDB() {
@@ -83,9 +95,9 @@ public class RealDataBase implements ServiceAvailability {
 
             String createTechnicianTable = "CREATE TABLE technician_info (" +
                     "name VARCHAR(255)," +
-                    "phoneNum VARCHAR(200)" +
-                    "type VARCHAR(200)" +
-                    "available boolean" +
+                    "phoneNum VARCHAR(200)," +
+                    "type VARCHAR(200)," +
+                    "available boolean," +
                     "servicePrice int" +
                     ")";
             st.executeUpdate(createTechnicianTable);
@@ -185,62 +197,32 @@ public class RealDataBase implements ServiceAvailability {
 //    }
 
     @Override
-    public String isPlumberAvailable() {
-        try {
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
+    public boolean isPlumberAvailable(String name) {
+        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);){
+
+            PreparedStatement statement = con.prepareStatement("SELECT available FROM technician_info WHERE name = '" + name + "'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString(1);
-            }
-            else{
-                return "no plumber available";
+                return resultSet.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override
-    public String isElectricianAvailable() {
-        try {
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString(1);
-            }
-            else{
-                return "no electrician available";
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    public boolean isElectricianAvailable(String name) {
+        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);){
 
-    public String changeState(String name){
-        try {
-            PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET available = FALSE WHERE name = '" + name + "'");
+            PreparedStatement statement = con.prepareStatement("SELECT available FROM technician_info WHERE name = '" + name + "'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return "State changed";
+                return resultSet.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "couldn't change state";
-    }
-    public int getPrice(String name){
-        try {
-
-            PreparedStatement statement = con.prepareStatement("SELECT servicePrice FROM technician_info WHERE name = '" + name + "'");
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1) ;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return false;
     }
 }

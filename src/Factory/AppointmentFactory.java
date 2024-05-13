@@ -8,9 +8,16 @@ public class AppointmentFactory {
    
     String name;
 
+
     // Create a proxy instance
+    DataBaseProxy proxy = new DataBaseProxy("Plumber","jaleel");
 
+    // Check availability
 
+    boolean isPlumberAvailable = proxy.isPlumberAvailable(name);
+    boolean isElectricianAvailable = proxy.isElectricianAvailable(name);
+
+   
 
     public Appointment createAppointment(DataBaseProxy proxy, String serviceType, String customerName, String ServiceProviderName) {
         if (serviceType.equalsIgnoreCase("electrician")) {
@@ -31,6 +38,4 @@ public class AppointmentFactory {
             throw new IllegalArgumentException("Invalid appointment type or no available appointments.");
         }
     }
-    
 }
-
