@@ -1,5 +1,6 @@
 package Decorator;
 
+//concrete component
 public class Plumber implements ServiceProvider {
     private String name;
     private String phoneNumber;

@@ -6,14 +6,36 @@ public class DataBaseProxy implements ServiceAvailability {
     private String serviceType;
     private Connection con;
 
-    @Override
-    public boolean isServiceAvailable(String serviceType) {
-        // Additional logic in proxy before delegating to real subject
-        System.out.println("Checking service availability for " + serviceType + "...");
+    public DataBaseProxy(String serviceType){
 
+    }
+//    @Override
+//    public boolean isServiceAvailable(String serviceType) {
+//
+//
+//        System.out.println("Checking service availability for " + serviceType + "...");
+//
+//        if (realdatabase == null){
+//            realdatabase = new RealDataBase(serviceType);
+//        }
+//        return realdatabase.isServiceAvailable(serviceType);
+//    }
+
+    @Override
+    public String isPlumberAvailable() {
+        System.out.println("Checking service availability for plumber...");
         if (realdatabase == null){
-            realdatabase = new RealDataBase(serviceType);
+            realdatabase = new RealDataBase();
         }
-        return realdatabase.isServiceAvailable(serviceType);
+        return realdatabase.isPlumberAvailable();
+    }
+
+    @Override
+    public String isElectricianAvailable() {
+        System.out.println("Checking service availability for Electrician...");
+        if (realdatabase == null){
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.isElectricianAvailable();
     }
 }

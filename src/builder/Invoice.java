@@ -3,12 +3,13 @@ package builder;
 import java.util.Date;
 
 // Invoice class representing the invoice
+//creates invoice builder
 public class Invoice {
     private String name;
     private String serviceProviderName;
     private String service;
     private Date date;
-    private String price;
+    private int price;
 
     // Private constructor to prevent direct instantiation
     Invoice(InvoiceBuilder builder) {
@@ -36,7 +37,7 @@ public class Invoice {
         return date;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 

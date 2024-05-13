@@ -8,7 +8,7 @@ public class InvoiceBuilder implements Builder {
     String serviceProviderName;
     String service;
     Date date;
-    String price;
+    int price;
 
 
 
@@ -38,7 +38,7 @@ public class InvoiceBuilder implements Builder {
     }
 
     @Override
-    public Builder setPrice(String price) {
+    public Builder setPrice(int price) {
         this.price = price;
         return this;
     }

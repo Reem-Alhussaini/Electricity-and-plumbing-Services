@@ -10,12 +10,12 @@ public class Main {
         String serviceProviderName = "serviceProvider";
         String service = "Service";
         Date date = new Date(); // Current date
-        String price = "price"; 
+        int price = "price";
 
         // Create an invoice
-        Invoice invoice = new Invoice.InvoiceBuilder()
-                .setName(name)
-                .setServiceProviderName(serviceProviderName)
+        Invoice invoice = new InvoiceBuilder()
+                .setName(name) //customer name
+                .setServiceProviderName(serviceProviderName) //technician name
                 .setService(service)
                 .setDate(date)
                 .setPrice(price)

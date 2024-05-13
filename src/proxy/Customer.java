@@ -6,14 +6,16 @@ public class Customer {
         //create scanner to read type
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("insert service type: ");
+        String serviceType = sc.next();
 
         // Create a service availability proxy
-        ServiceAvailability proxy = new DataBaseProxy();
+        ServiceAvailability proxy = new DataBaseProxy(serviceType);
 
 
         // Check service availability
-        boolean isElectricalServiceAvailable = proxy.isServiceAvailable("Electrical");
-        boolean isPlumbingServiceAvailable = proxy.isServiceAvailable("Plumbing");
+        String isElectricalServiceAvailable = proxy.isElectricianAvailable();
+        String isPlumbingServiceAvailable = proxy.isPlumberAvailable();
 
 
 

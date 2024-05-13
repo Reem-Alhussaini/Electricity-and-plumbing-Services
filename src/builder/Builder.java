@@ -9,7 +9,7 @@ public interface Builder {
     Builder setServiceProviderName(String serviceProviderName);
     Builder setService(String service);
     Builder setDate(Date date);
-    Builder setPrice(String price);
+    Builder setPrice(int price);
     Invoice build();
 }
 

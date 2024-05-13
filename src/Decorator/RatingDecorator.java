@@ -1,6 +1,6 @@
 package Decorator;
 
-// Decorator interface for rating functionality
+// Decorator
 public abstract class RatingDecorator implements ServiceProvider {
     protected ServiceProvider serviceProvider;
 
