@@ -6,20 +6,17 @@ public class RealDataBase implements ServiceAvailability {
 
     private RealDataBase realdatabase;
     private String serviceType;
-    private Connection con;
 
 
     private static final String CON_URL = "jdbc:mysql://127.0.0.1:3306/?user=root";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/AnwarDB?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "Ar@121963";
     private static final String DATABASE_NAME = "AnwarDB";
 
 
-    public RealDataBase(String serviceType) {
-        this.serviceType = serviceType;
-
+    public RealDataBase() {
         try {
             Connection con = DriverManager.getConnection(CON_URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
@@ -197,32 +194,62 @@ public class RealDataBase implements ServiceAvailability {
 //    }
 
     @Override
-    public boolean isPlumberAvailable(String name) {
-        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);){
-
-            PreparedStatement statement = con.prepareStatement("SELECT available FROM technician_info WHERE name = '" + name + "'");
+    public String isPlumberAvailable() {
+        try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt(1) > 0;
+                return resultSet.getString(1);
+            }
+            else{
+                return "no plumber available";
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
+    }
+    @Override
+    public String isElectricianAvailable() {
+        try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            }
+            else{
+                return "no electrician available";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    @Override
-    public boolean isElectricianAvailable(String name) {
-        try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);){
-
-            PreparedStatement statement = con.prepareStatement("SELECT available FROM technician_info WHERE name = '" + name + "'");
+    public String changeState(String name){
+        try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
+            PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET available = FALSE WHERE name = '" + name + "'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt(1) > 0;
+                return "State changed";
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return "couldn't change state";
+    }
+
+    public int getPrice(String name){
+        try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
+
+            PreparedStatement statement = con.prepareStatement("SELECT servicePrice FROM technician_info WHERE name = '" + name + "'");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

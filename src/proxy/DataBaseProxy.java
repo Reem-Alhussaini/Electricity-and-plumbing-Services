@@ -4,23 +4,28 @@ import java.sql.*;
 public class DataBaseProxy implements ServiceAvailability {
     private RealDataBase realdatabase;
     private String serviceType;
+    private Connection con;
 
-    private String name;
+    public DataBaseProxy(String serviceType){
 
-    public DataBaseProxy(String serviceType, String name){
-        this.serviceType = serviceType;
-        this.name = name;
     }
 
-
-    //added these two methods, they both check if realdatabase is null
     @Override
-    public boolean isPlumberAvailable(String name) {
-        System.out.println("Checking service availability for " + name + "...");
+    public String isPlumberAvailable() {
+        System.out.println("Checking service availability for plumber...");
         if (realdatabase == null){
-           realdatabase = new RealDataBase(name);
-       }
-        return realdatabase.isPlumberAvailable(name);
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.isPlumberAvailable();
+    }
+
+    @Override
+    public String isElectricianAvailable() {
+        System.out.println("Checking service availability for Electrician...");
+        if (realdatabase == null){
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.isElectricianAvailable();
     }
 
     @Override

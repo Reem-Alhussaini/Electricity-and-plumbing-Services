@@ -6,7 +6,10 @@ import Factory.AppointmentFactory;
 import builder.Invoice;
 import builder.InvoiceBuilder;
 import proxy.DataBaseProxy;
+import proxy.RealDataBase;
+import proxy.ServiceAvailability;
 
+import java.io.*;
 import java.sql.*;
 import java.util.Date;
 import java.util.Scanner;
@@ -18,18 +21,24 @@ public class Main {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/AnwarDB?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "1234";
-    public static void main(String[] args) throws SQLException {
+    private static final String PASSWORD = "Ar@121963";
+    public static void main(String[] args) throws SQLException, IOException {
+
+        //database
+        //RealDataBase.start();
 
         //log in
         String customerName = login();
 
         //choose service type
-        String service = chooseServiceType();
+        //String service = chooseServiceType();
+        String service = "plumber";
+
 
         //------------------------------------------------------------------------------------
 
-        DataBaseProxy proxy = new DataBaseProxy(service);
+        ServiceAvailability proxy = new DataBaseProxy(service);
+
 
         // Check availability
         String serviceProviderName;
@@ -110,7 +119,9 @@ public class Main {
         System.out.println("2. Plumber");
         System.out.print("Enter your choice (1 or 2): ");
 
-        int choice = userInput.nextInt();
+
+        String input = userInput.next();
+        int choice = Integer.parseInt(input);
 
         String serviceType;
         if (choice == 1) {
@@ -125,4 +136,5 @@ public class Main {
         userInput.close();
         return serviceType;
     }
+
 }
