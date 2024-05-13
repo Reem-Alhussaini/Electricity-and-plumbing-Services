@@ -38,4 +38,22 @@ public class DataBaseProxy implements ServiceAvailability {
         }
         return realdatabase.isElectricianAvailable();
     }
+
+    @Override
+    public int getPrice(String name) {
+        System.out.println("getting service price...");
+        if (realdatabase == null){
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.getPrice(name);
+    }
+
+    @Override
+    public String changeState(String name) {
+        System.out.println("changing availability...");
+        if (realdatabase == null){
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.changeState(name);
+    }
 }
