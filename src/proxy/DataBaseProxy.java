@@ -45,4 +45,13 @@ public class DataBaseProxy implements ServiceAvailability {
         }
         return realdatabase.changeState(name);
     }
+
+    @Override
+    public String changeRating(String name, float rating) {
+        System.out.println("updating rating...");
+        if (realdatabase == null){
+            realdatabase = new RealDataBase();
+        }
+        return realdatabase.changeRating(name, rating);
+    }
 }

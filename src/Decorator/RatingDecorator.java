@@ -1,5 +1,7 @@
 package Decorator;
 
+import proxy.ServiceAvailability;
+
 // Decorator
 public abstract class RatingDecorator implements ServiceProvider {
     protected ServiceProvider serviceProvider;
@@ -9,20 +11,11 @@ public abstract class RatingDecorator implements ServiceProvider {
     }
 
     @Override
-    public String getName() {
-        return serviceProvider.getName();
-    }
-
-    @Override
-    public String getPhoneNumber() {
-        return serviceProvider.getPhoneNumber();
-    }
-
-    @Override
-    public float getRating() {
-        return serviceProvider.getRating();
+    public float rate(String serviceProviderName, ServiceAvailability proxy) {
+        return serviceProvider.rate(serviceProviderName, proxy);
     }
 }
+
 
 
 
