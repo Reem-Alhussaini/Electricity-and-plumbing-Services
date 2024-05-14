@@ -191,6 +191,7 @@ public class RealDataBase implements ServiceAvailability {
     //-------------------------------------------------------------------------------------------------
     @Override
     public String isPlumberAvailable() {
+        System.out.println("Checking service availability for plumber...");
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
             PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE AND type = 'plumber'");
             ResultSet resultSet = statement.executeQuery();
@@ -209,6 +210,7 @@ public class RealDataBase implements ServiceAvailability {
 //-------------------------------------------------------------------------------------------------
     @Override
     public String isElectricianAvailable() {
+        System.out.println("Checking service availability for Electrician...");
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
             PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE AND type = 'electrician'");
             ResultSet resultSet = statement.executeQuery();
@@ -225,7 +227,9 @@ public class RealDataBase implements ServiceAvailability {
     }
 
 //-------------------------------------------------------------------------------------------------
-    public String changeState(String name) {
+    public String changeAvailability(String name) {
+        System.out.println("changing availability for "+name+"...");
+
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET available = ? WHERE name = ?")) {
 
@@ -251,6 +255,8 @@ public class RealDataBase implements ServiceAvailability {
     public int getPrice(String name){
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
 
+            System.out.println("getting service price...");
+
             PreparedStatement statement = con.prepareStatement("SELECT servicePrice FROM technician_info WHERE name = '" + name + "'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -264,6 +270,8 @@ public class RealDataBase implements ServiceAvailability {
     //-------------------------------------------------------------------------------------------------
 
     public String changeRating(String name, float rating) {
+        System.out.println("updating rating for "+name+"...");
+
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET rating = ? WHERE name = ?")) {
 

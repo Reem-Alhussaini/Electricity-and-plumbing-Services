@@ -12,14 +12,11 @@ import java.util.Scanner;
 
 
 public class Main {
-//    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/AnwarDB?user=root";
-//    private static final String USERNAME = "root";
-//    //change the password to your password
-//    private static final String PASSWORD = "Ar@121963";
+
     public static void main(String[] args) throws SQLException{
 
         //create the database (Proxy)
-        RealDataBase.start();
+        //RealDataBase.start();
         System.out.println();
 
         //prompt the user to choose a login strategy and perform login operation (Strategy)
@@ -35,6 +32,7 @@ public class Main {
         AppointmentFactory appointmentFactory = new AppointmentFactory();
         Appointment app = appointmentFactory.createAppointment(service) ;
         String serviceProviderName = app.schedule();
+        //customer name,service provider name, service, proxy, date
 
         if(serviceProviderName.equalsIgnoreCase("no electrician available") ||
                 serviceProviderName.equalsIgnoreCase("no plumber available")){
@@ -46,28 +44,23 @@ public class Main {
         //------------------------------------------------------------------------------------
         //create invoice (Builder)
         ServiceAvailability proxy = new DataBaseProxy(service);
-        Date date = new Date(); // appointment date
-        int price = proxy.getPrice(serviceProviderName); //service price
 
-        Invoice invoice = new InvoiceBuilder()
-                .setName(customer) //customer name
-                .setServiceProviderName(serviceProviderName) //technician name
-                .setService(service)
-                .setDate(date)
-                .setPrice(price)
-                .build();
+        InvoiceBuilder invoiceBuilder = new InvoiceBuilder();
+        InvoiceEngineer invoiceEngineer = new InvoiceEngineer(invoiceBuilder);
+        invoiceEngineer.makeInvoice();
+        Invoice invoice = invoiceEngineer.getInvoice();
 
-        //this method must be in a database proxy class
-        RealDataBase.insertInvoices(customer,serviceProviderName,service, date ,price);
-        System.out.println(invoice.toString());
+        // Insert invoice into the database
+        RealDataBase.insertInvoices(invoice.getName(), invoice.getServiceProviderName(),
+                invoice.getService(), invoice.getDate(), invoice.getPrice());
         System.out.println();
-        //insert invoice in database
 
+        System.out.println(invoice);
         //--------------------------------------------------------------------------------------------------------------------------------
         //Rating (Decorator)
         rate(service, serviceProviderName);
-    }
-    //----------------------------------------------------------------------------------------------------------------
+    } // end main
+    //-----------------------------------------------| methods |-----------------------------------------------------//
     //login (Strategy)
     public static String login() {
         Scanner scanner = new Scanner(System.in);
@@ -77,6 +70,7 @@ public class Main {
         System.out.println("Choose login method:");
         System.out.println("1. Username");
         System.out.println("2. Email");
+        System.out.print("Enter your choice (1 or 2): ");
         int choice = scanner.nextInt();
 
         // Set the selected strategy

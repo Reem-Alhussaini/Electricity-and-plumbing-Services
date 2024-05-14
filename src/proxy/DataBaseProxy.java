@@ -4,15 +4,16 @@ import java.sql.*;
 public class DataBaseProxy implements ServiceAvailability {
     private RealDataBase realdatabase;
     private String serviceType;
-    private Connection con;
+
 
     public DataBaseProxy(String serviceType){
 
+        this.serviceType = serviceType;
     }
 
     @Override
     public String isPlumberAvailable() {
-        System.out.println("Checking service availability for plumber...");
+        //System.out.println("Checking service availability for plumber..."); // printline moved to realDataBase method
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
@@ -21,7 +22,7 @@ public class DataBaseProxy implements ServiceAvailability {
 
     @Override
     public String isElectricianAvailable() {
-        System.out.println("Checking service availability for Electrician...");
+        //System.out.println("Checking service availability for Electrician...");
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
@@ -30,7 +31,7 @@ public class DataBaseProxy implements ServiceAvailability {
 
     @Override
     public int getPrice(String name) {
-        System.out.println("getting service price...");
+        //System.out.println("getting service price...");
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
@@ -38,17 +39,17 @@ public class DataBaseProxy implements ServiceAvailability {
     }
 
     @Override
-    public String changeState(String name) {
-        System.out.println("changing availability...");
+    public String changeAvailability(String name) {
+        //System.out.println("changing availability...");
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
-        return realdatabase.changeState(name);
+        return realdatabase.changeAvailability(name);
     }
 
     @Override
     public String changeRating(String name, float rating) {
-        System.out.println("updating rating...");
+        //System.out.println("updating rating...");
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
