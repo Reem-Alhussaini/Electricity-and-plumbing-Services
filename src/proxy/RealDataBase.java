@@ -140,11 +140,11 @@ public class RealDataBase implements ServiceAvailability {
              Statement st = con.createStatement()) {
 
             String insertTechnicianTable = "INSERT INTO technician_info (name, phoneNum, type, available, servicePrice, rating) VALUES " +
-                    "('jaleel','0548888888', 'pulmber' ,TRUE, 300, 0.0), " +
-                    "('abdulkareem', '0548888888', 'pulmber', TRUE, 300, 0.0)," +
-                    "('jamal', '0548888888', 'pulmber', TRUE, 300, 0.0)," +
-                    "('saeed', '0548888888', 'electritian', TRUE, 250, 0.0)," +
-                    "('ibrahim', '0548888888', 'electritian', TRUE, 250, 0.0)";
+                    "('jaleel','0548888888', 'plumber' ,TRUE, 300, 0.0), " +
+                    "('abdulkareem', '0548888888', 'plumber', TRUE, 300, 0.0)," +
+                    "('jamal', '0548888888', 'plumber', TRUE, 300, 0.0)," +
+                    "('saeed', '0548888888', 'electrician', TRUE, 250, 0.0)," +
+                    "('ibrahim', '0548888888', 'electrician', TRUE, 250, 0.0)";
 
             st.executeUpdate(insertTechnicianTable);
 
@@ -192,7 +192,7 @@ public class RealDataBase implements ServiceAvailability {
     @Override
     public String isPlumberAvailable() {
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE AND type = 'plumber'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString(1);
@@ -210,7 +210,7 @@ public class RealDataBase implements ServiceAvailability {
     @Override
     public String isElectricianAvailable() {
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE");
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = 1 AND type = 'electrician'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString(1);

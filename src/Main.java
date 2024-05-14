@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) throws SQLException{
 
         //database (Proxy)
-        RealDataBase.start();
+        //RealDataBase.start();
         System.out.println();
 
         //log in (Strategy)
@@ -61,47 +61,27 @@ public class Main {
         //--------------------------------------------------------------------------------------------------------------------------------
         //Rating (Decorator)
 
-        if (service.equals("plumber")) {
-            // Create a Plumber instance
-            ServiceProvider serviceProvider = new Plumber(serviceProviderName);
-            // Call the rate method of the concrete component
-            float rating = serviceProvider.rate(service, proxy);
-            System.out.println("You rated the Plumber " + serviceProviderName +": " + rating);
-
-            // Decorate the service provider instance with the store rating functionality
-            serviceProvider = new PlumberRatingDecorator(serviceProvider);
-
-            // Call the rate method of the decorated service provider
-            float decoratedRating = serviceProvider.rate(service, proxy);
-
-            // Print the decorated rating
-            System.out.println("The updated rating for Plumber "+ serviceProviderName +": " + decoratedRating);
-
-        //------------------------------------------------------------------------------
-
+        ServiceProvider serviceProvider;
+        if (service.equalsIgnoreCase("plumber")) {
+            serviceProvider = new Plumber(serviceProviderName);
         } else if (service.equals("electrician")) {
-            // Create an Electrician instance
-            ServiceProvider serviceProvider = new Electrician(serviceProviderName);
-
-            // Call the rate method of the concrete component
-            float rating = serviceProvider.rate(service, proxy);
-            System.out.println("You rated the Electrician " + serviceProviderName +": " +rating);
-
-            // Decorate the service provider instance with the store rating functionality
-            serviceProvider = new ElectricianRatingDecorator(serviceProvider);
-
-            // Call the rate method of the decorated service provider
-            float decoratedRating = serviceProvider.rate(service, proxy);
-
-            // Print the decorated rating
-            System.out.println("The updated rating for Electrician "+ serviceProviderName +": " + decoratedRating);
-
-        //------------------------------------------------------------------------------
-
+            serviceProvider = new Electrician(serviceProviderName);
         } else {
-            System.out.println("Service not supported yet.");
+            throw new IllegalArgumentException("Invalid service type");
         }
 
+        // Create instances of decorators, passing concrete components as arguments
+        ServiceProvider decoratedService;
+        if (service.equals("plumber")) {
+            decoratedService = new PlumberRatingDecorator(serviceProvider);
+        } else if (service.equals("electrician")) {
+            decoratedService = new ElectricianRatingDecorator(serviceProvider);
+        } else {
+            throw new IllegalArgumentException("Invalid service type");
+        }
+
+        // Call the rate method on the decorator
+        //float rating = decoratedService.rate(service, proxy);
 
     }
 
