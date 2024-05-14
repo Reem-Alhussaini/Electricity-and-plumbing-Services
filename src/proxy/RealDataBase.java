@@ -210,7 +210,7 @@ public class RealDataBase implements ServiceAvailability {
     @Override
     public String isElectricianAvailable() {
         try(Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);) {
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = 1 AND type = 'electrician'");
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM technician_info WHERE available = TRUE AND type = 'electrician'");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString(1);

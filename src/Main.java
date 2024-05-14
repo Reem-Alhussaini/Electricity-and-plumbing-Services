@@ -18,15 +18,16 @@ public class Main {
 //    private static final String PASSWORD = "Ar@121963";
     public static void main(String[] args) throws SQLException{
 
-        //database (Proxy)
-        //RealDataBase.start();
+        //create the database (Proxy)
+        RealDataBase.start();
         System.out.println();
 
-        //log in (Strategy)
+        //prompt the user to choose a login strategy and perform login operation (Strategy)
         String customer = login();
+        System.out.println("Logged in user: " + customer);
         System.out.println();
 
-        //choose service type
+        //prompt the user to choose a service type (plumber or electrician)
         String service = chooseServiceType();
         System.out.println();
 
@@ -34,12 +35,16 @@ public class Main {
         AppointmentFactory appointmentFactory = new AppointmentFactory();
         Appointment app = appointmentFactory.createAppointment(service) ;
         String serviceProviderName = app.schedule();
+
+        if(serviceProviderName.equalsIgnoreCase("no electrician available") ||
+                serviceProviderName.equalsIgnoreCase("no plumber available")){
+            System.out.println(serviceProviderName);
+            System.exit(0);
+        }
         System.out.println();
 
-        //***** we need to get the invoice data from the appointment object, modify createAppointment method first******//
         //------------------------------------------------------------------------------------
         //create invoice (Builder)
-
         ServiceAvailability proxy = new DataBaseProxy(service);
         Date date = new Date(); // appointment date
         int price = proxy.getPrice(serviceProviderName); //service price
@@ -60,111 +65,39 @@ public class Main {
 
         //--------------------------------------------------------------------------------------------------------------------------------
         //Rating (Decorator)
-
-        ServiceProvider serviceProvider;
-        if (service.equalsIgnoreCase("plumber")) {
-            serviceProvider = new Plumber(serviceProviderName);
-        } else if (service.equals("electrician")) {
-            serviceProvider = new Electrician(serviceProviderName);
-        } else {
-            throw new IllegalArgumentException("Invalid service type");
-        }
-
-        // Create instances of decorators, passing concrete components as arguments
-        ServiceProvider decoratedService;
-        if (service.equals("plumber")) {
-            decoratedService = new PlumberRatingDecorator(serviceProvider);
-        } else if (service.equals("electrician")) {
-            decoratedService = new ElectricianRatingDecorator(serviceProvider);
-        } else {
-            throw new IllegalArgumentException("Invalid service type");
-        }
-
-        // Call the rate method on the decorator
-        //float rating = decoratedService.rate(service, proxy);
-
+        rate(service, serviceProviderName);
     }
-
-//        if(service.equalsIgnoreCase("plumber")){
-//            Plumber plumber = new Plumber(serviceProviderName);
-//            // Wrapping plumber with rating functionality
-//            PlumberRatingDecorator ratedPlumber = new PlumberRatingDecorator(plumber);
-//            //updating plumber rating
-//            ratedPlumber.updateRating(rating);
-//            System.out.println("Plumber rating: " + ratedPlumber.rate());
-//        }else{
-//            Electrician electrician = new Electrician(serviceProviderName);
-//            // Wrapping electrician with rating functionality
-//            ElectricianRatingDecorator ratedElectrician = new ElectricianRatingDecorator(electrician);
-//            //updating electrician rating
-//            ratedElectrician.updateRating(rating);
-//            System.out.println("Electrician rating: " + ratedElectrician.rate());
-//        }
-
-
-
-//        //Factory >> Appointment
-//        String serviceType="";
-//        String name="";
-//        AppointmentFactory factory = new AppointmentFactory();
-//        Appointment appointment = factory.createAppointment(serviceType, name);
-//        appointment.schedule();
-
     //----------------------------------------------------------------------------------------------------------------
     //login (Strategy)
-    public static String login() throws SQLException {
-        Scanner userInput = new Scanner(System.in);
+    public static String login() {
+        Scanner scanner = new Scanner(System.in);
+        LoginContext loginContext = new LoginContext();
 
+        // Prompt user to choose login strategy
         System.out.println("Choose login method:");
-        System.out.println("1. Email");
-        System.out.println("2. Username");
+        System.out.println("1. Username");
+        System.out.println("2. Email");
+        int choice = scanner.nextInt();
 
-        // Get user's choice
-        int choice = userInput.nextInt();
-        userInput.nextLine(); // Consume newline character
-
-        // Create corresponding LoginStrategy based on user's choice
-        LoginStrategy loginStrategy;
-        if (choice == 1) {
-            loginStrategy = new EmailLoginStrategy();
-        } else if (choice == 2) {
-            loginStrategy = new UsernameLoginStrategy();
-        } else {
-            System.out.println("Invalid choice. Please choose 1 or 2.");
-            return login();
+        // Set the selected strategy
+        switch (choice) {
+            case 1:
+                loginContext.setLoginStrategy(new UsernameLoginStrategy());
+                break;
+            case 2:
+                loginContext.setLoginStrategy(new EmailLoginStrategy());
+                break;
+            default:
+                return "Invalid choice.";
         }
 
-        // Create LoginContext with the selected strategy
-        LoginContext loginContext = new LoginContext(loginStrategy);
-
-        // Call performLogin() method on the LoginContext
-        String loggedInUser = loginContext.performLogin();
-        System.out.println("Logged in as: " + loggedInUser);
-        return loggedInUser;
+        try {
+            // Perform login using the selected strategy
+            return loginContext.performLogin();
+        } catch (SQLException e) {
+            return "Error during login: " + e.getMessage();
+        }
     }
-
-//    public static String login() throws SQLException {
-//        Scanner userInput = new Scanner(System.in);
-//        System.out.print("Enter username: ");
-//        String name = userInput.nextLine();
-//        System.out.print("Enter password: ");
-//        String password = userInput.nextLine();
-//
-//
-//        try (Connection connection = getConnection(DB_URL, USERNAME, PASSWORD); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user_info WHERE name = ? AND password = ?")) {
-//            stmt.setString(1, name);
-//            stmt.setString(2, password);
-//            try (ResultSet result = stmt.executeQuery()) {
-//                if (result.next()) {
-//                    System.out.println("Login successful!");
-//                    return name; // Return the username if login is successful
-//                } else {
-//                    System.out.println("Invalid name or password. Please try again.");
-//                    return login(); // Recursive call to allow the user to try again
-//                }
-//            }
-//        }
-//    }
     //----------------------------------------------------------------------------------------------------------------
     public static String chooseServiceType() {
         Scanner userInput = new Scanner(System.in);
@@ -189,6 +122,26 @@ public class Main {
         return serviceType;
     }
     //----------------------------------------------------------------------------------------------------------------
+    public static void rate(String service, String serviceProviderName){
 
+        ServiceProvider serviceProvider;
+        if (service.equalsIgnoreCase("plumber")) {
+            serviceProvider = new Plumber(serviceProviderName);
+        } else if (service.equals("electrician")) {
+            serviceProvider = new Electrician(serviceProviderName);
+        } else {
+            throw new IllegalArgumentException("Invalid service type");
+        }
+
+        // Create instances of decorators, passing concrete components as arguments
+        ServiceProvider decoratedService;
+        if (service.equals("plumber")) {
+            decoratedService = new PlumberRatingDecorator(serviceProvider);
+        } else if (service.equals("electrician")) {
+            decoratedService = new ElectricianRatingDecorator(serviceProvider);
+        } else {
+            throw new IllegalArgumentException("Invalid service type");
+        }
+    }
 
 }

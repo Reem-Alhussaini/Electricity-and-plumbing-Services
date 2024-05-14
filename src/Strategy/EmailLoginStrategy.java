@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static java.sql.DriverManager.getConnection;
 
 
-//User can login by email
+//User can log in by email
 public class EmailLoginStrategy implements LoginStrategy {
 
     //database
