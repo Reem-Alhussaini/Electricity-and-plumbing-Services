@@ -1,5 +1,5 @@
 package Factory;
 
 public interface Appointment {
-    void schedule();
+    String schedule();
 }

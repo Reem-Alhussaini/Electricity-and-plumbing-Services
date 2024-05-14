@@ -8,4 +8,5 @@ public interface ServiceAvailability {
 
     int getPrice(String name);
     String changeState(String name);
+    String changeRating(String name, float rating);
 }

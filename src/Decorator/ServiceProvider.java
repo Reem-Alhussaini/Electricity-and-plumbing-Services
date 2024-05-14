@@ -1,7 +1,9 @@
 package Decorator;
-//component
+
+import proxy.ServiceAvailability;
+
+// Component interface
 public interface ServiceProvider {
-    String getName();
-    String getPhoneNumber();
-    float getRating();
+    float rate(String serviceProviderName, ServiceAvailability proxy);
 }
+

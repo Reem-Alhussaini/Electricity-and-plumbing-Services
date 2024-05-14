@@ -1,35 +1,22 @@
 package Decorator;
 
+import proxy.ServiceAvailability;
+import java.util.Scanner;
+
 // Concrete Component representing Electrician
 public class Electrician implements ServiceProvider {
-    private String name;
-    private String phoneNumber;
     private float rating;
 
-    public Electrician(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public Electrician(String name) {
         this.rating = 0; // Initial rating
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    @Override
-    public float getRating() {
-        return rating;
-    }
-
-    public void updateRating(int newRating) {
-        // Update rating logic based on new rating
-        // For simplicity, let's just take the average of old and new ratings
+    public float rate(String serviceProviderName, ServiceAvailability proxy) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("How was the service? Please rate your service provider from 1-5: ");
+        float newRating = input.nextFloat();
         this.rating = (this.rating + newRating) / 2.0f;
+        return this.rating;
     }
 }
