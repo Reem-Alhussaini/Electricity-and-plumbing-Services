@@ -15,7 +15,7 @@ public class PlumbingAppointment implements Appointment {
         String serviceProviderName = proxy.isPlumberAvailable();
 
         //change the availability of the service provider
-        proxy.changeState(serviceProviderName);
+        proxy.changeAvailability(serviceProviderName);
 
         System.out.println("Plumbing appointment scheduled");
         return  serviceProviderName;

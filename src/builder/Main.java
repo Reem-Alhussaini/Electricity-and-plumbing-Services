@@ -5,12 +5,7 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-//        // Sample data from the database
-//        String name = "Name";
-//        String serviceProviderName = "serviceProvider";
-//        String service = "Service";
-//        Date date = new Date(); // Current date
-//        int price = "price";
+
 //
 //        // Create an invoice
 //        Invoice invoice = new InvoiceBuilder()

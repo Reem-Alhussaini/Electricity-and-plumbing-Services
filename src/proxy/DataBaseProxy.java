@@ -38,12 +38,12 @@ public class DataBaseProxy implements ServiceAvailability {
     }
 
     @Override
-    public String changeState(String name) {
+    public String changeAvailability(String name) {
         System.out.println("changing availability...");
         if (realdatabase == null){
             realdatabase = new RealDataBase();
         }
-        return realdatabase.changeState(name);
+        return realdatabase.changeAvailability(name);
     }
 
     @Override

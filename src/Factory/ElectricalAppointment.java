@@ -16,7 +16,7 @@ public class ElectricalAppointment implements Appointment {
         String serviceProviderName = proxy.isElectricianAvailable();
 
         //change the availability of the service provider
-        proxy.changeState(serviceProviderName);
+        proxy.changeAvailability(serviceProviderName);
 
         System.out.println("Electrical appointment scheduled");
         return  serviceProviderName;

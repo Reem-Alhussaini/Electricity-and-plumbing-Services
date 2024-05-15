@@ -12,13 +12,7 @@ public class Invoice {
     private int price;
 
     // Private constructor to prevent direct instantiation
-    Invoice(InvoiceBuilder builder) {
-        this.name = builder.name;
-        this.serviceProviderName = builder.serviceProviderName;
-        this.service = builder.service;
-        this.date = builder.date;
-        this.price = builder.price;
-    }
+    Invoice() {}
 
     // Getters
     public String getName() {

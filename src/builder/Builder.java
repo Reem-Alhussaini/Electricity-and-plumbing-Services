@@ -5,7 +5,8 @@ import java.util.Date;
 
 // Builder interface
 public interface Builder {
-    Builder setName(String name);
+    //change setName to buildName
+    String buildName();
     Builder setServiceProviderName(String serviceProviderName);
     Builder setService(String service);
     Builder setDate(Date date);

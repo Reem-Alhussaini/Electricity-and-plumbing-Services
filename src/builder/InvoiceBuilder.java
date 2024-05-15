@@ -4,19 +4,16 @@ package builder;
 import java.util.Date;
 // InvoiceBuilder class to construct Invoice objects
 public class InvoiceBuilder implements Builder {
-    String name;
-    String serviceProviderName;
-    String service;
-    Date date;
-    int price;
+    private Invoice invoice;
 
-
+    public InvoiceBuilder(Invoice invoice) {
+        this.invoice = new Invoice();
+    }
 
     // Setters for invoice attributes
     @Override
-    public Builder setName(String name) {
-        this.name = name;
-        return this;
+    public String buildName() {
+        return invoice; //invoice.setName(customer)
     }
 
     @Override

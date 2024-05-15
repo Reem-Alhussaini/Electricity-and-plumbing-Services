@@ -5,8 +5,8 @@ public interface ServiceAvailability {
     // trying separate
     String isPlumberAvailable();
     String isElectricianAvailable();
+    String changeAvailability(String name);
 
     int getPrice(String name);
-    String changeState(String name);
     String changeRating(String name, float rating);
 }

@@ -225,7 +225,7 @@ public class RealDataBase implements ServiceAvailability {
     }
 
 //-------------------------------------------------------------------------------------------------
-    public String changeState(String name) {
+    public String changeAvailability(String name) {
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET available = ? WHERE name = ?")) {
 
