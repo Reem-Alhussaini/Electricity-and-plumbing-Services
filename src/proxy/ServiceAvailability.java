@@ -9,4 +9,6 @@ public interface ServiceAvailability {
 
     int getPrice(String name);
     String changeRating(String name, float rating);
+    //String getService(String serviceType); // to get service type
+
 }

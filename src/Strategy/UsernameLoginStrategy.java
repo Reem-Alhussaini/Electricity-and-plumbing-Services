@@ -15,7 +15,7 @@ public class UsernameLoginStrategy implements LoginStrategy {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/AnwarDB?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "Ar@121963";
+    private static final String PASSWORD = "1234";
 
 
     @Override

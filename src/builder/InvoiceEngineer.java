@@ -1,5 +1,6 @@
 package builder;
 
+// Director
 public class InvoiceEngineer {
     private Builder builder;
 
@@ -7,12 +8,15 @@ public class InvoiceEngineer {
         this.builder = builder;
     }
 
-    public Invoice getBuilder() {
+    public Invoice getInvoice() {
         return builder.build();
     }
 
     public void makeInvoice(){
-        this.builder.buildName();
-
+        builder.buildName();
+        builder.buildServiceProviderName();
+        builder.buildService();
+        builder.buildDate();
+        builder.buildPrice();
     }
 }

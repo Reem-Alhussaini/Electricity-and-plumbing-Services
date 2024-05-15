@@ -6,43 +6,40 @@ import java.util.Date;
 public class InvoiceBuilder implements Builder {
     private Invoice invoice;
 
-    public InvoiceBuilder(Invoice invoice) {
+
+    public InvoiceBuilder() {
         this.invoice = new Invoice();
     }
 
     // Setters for invoice attributes
     @Override
-    public String buildName() {
-        return invoice; //invoice.setName(customer)
+    public void buildName() {
+        invoice.setName("Customer Name");
     }
 
     @Override
-    public Builder setServiceProviderName(String serviceProviderName) {
-        this.serviceProviderName = serviceProviderName;
-        return this;
+    public void buildServiceProviderName() {
+        invoice.setServiceProviderName("Service Provider Name");
     }
 
     @Override
-    public Builder setService(String service) {
-        this.service = service;
-        return this;
+    public void buildService() {
+        invoice.setService("Service Name");
     }
 
     @Override
-    public Builder setDate(Date date) {
-        this.date = date;
-        return this;
+    public void buildDate() {
+        invoice.setDate(new Date());
     }
 
     @Override
-    public Builder setPrice(int price) {
-        this.price = price;
-        return this;
+    public void buildPrice() {
+        invoice.setPrice(100); // Example price
     }
 
     // Method to build the Invoice object
     @Override
     public Invoice build() {
-        return new Invoice(this);
+        return this.invoice;
     }
 }
