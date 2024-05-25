@@ -1,7 +1,5 @@
 package builder;
 
-import proxy.ServiceAvailability;
-
 import java.util.Date;
 
 //creates invoice builder
@@ -14,11 +12,7 @@ public class Invoice {
     private int price;
 
     // Private constructor to prevent direct instantiation
-    Invoice() {
-
-        //String name, String serviceProvidername, String service, ServiceAvailability proxy, Date date <- this was parameters
-
-    }
+    Invoice() {}
 
     // Getters
     public String getName() {
@@ -64,12 +58,12 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice{" +
+        return "\nInvoice{" +
                 "name='" + name + '\'' +
                 ", serviceProviderName='" + serviceProviderName + '\'' +
                 ", service='" + service + '\'' +
                 ", date=" + date +
                 ", price='" + price + '\'' +
-                '}';
+                "}\n";
     }
 }

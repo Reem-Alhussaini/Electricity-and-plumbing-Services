@@ -5,18 +5,14 @@ import builder.*;
 import proxy.*;
 
 import java.sql.*;
-import java.util.Date;
 import java.util.Scanner;
-
-//import static java.sql.DriverManager.getConnection;
-
 
 public class Main {
 
     public static void main(String[] args) throws SQLException{
 
         //create the database (Proxy)
-        //RealDataBase.start();
+        RealDataBase.start();
         System.out.println();
 
         //prompt the user to choose a login strategy and perform login operation (Strategy)
@@ -32,6 +28,7 @@ public class Main {
         AppointmentFactory appointmentFactory = new AppointmentFactory();
         Appointment app = appointmentFactory.createAppointment(service) ;
         String serviceProviderName = app.schedule();
+
         //customer name,service provider name, service, proxy, date
 
         if(serviceProviderName.equalsIgnoreCase("no electrician available") ||
@@ -39,6 +36,7 @@ public class Main {
             System.out.println(serviceProviderName);
             System.exit(0);
         }
+        System.out.println("appointment scheduled!");
         System.out.println();
 
         //------------------------------------------------------------------------------------
@@ -46,7 +44,7 @@ public class Main {
         ServiceAvailability proxy = new DataBaseProxy(service);
 
         InvoiceBuilder invoiceBuilder = new InvoiceBuilder();
-        InvoiceEngineer invoiceEngineer = new InvoiceEngineer(invoiceBuilder);
+        InvoiceEngineer invoiceEngineer = new InvoiceEngineer(invoiceBuilder, customer, serviceProviderName, service, proxy);
         invoiceEngineer.makeInvoice();
         Invoice invoice = invoiceEngineer.getInvoice();
 
@@ -59,6 +57,7 @@ public class Main {
         //--------------------------------------------------------------------------------------------------------------------------------
         //Rating (Decorator)
         rate(service, serviceProviderName);
+
     } // end main
     //-----------------------------------------------| methods |-----------------------------------------------------//
     //login (Strategy)

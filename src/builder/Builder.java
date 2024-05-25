@@ -1,19 +1,18 @@
 package builder;
 
-
-import java.util.Date;
+import proxy.ServiceAvailability;
 
 // Builder interface
 public interface Builder {
-        void buildName();
+        void buildName(String name);
 
-        void buildServiceProviderName();
+        void buildServiceProviderName(String ServiceProviderName);
 
-        void buildService();
+        void buildService(String service);
 
         void buildDate();
 
-        void buildPrice();
+        void buildPrice(ServiceAvailability proxy, String ServiceProviderName);
 
         Invoice build();
     }

@@ -2,7 +2,7 @@ package Decorator;
 
 import proxy.ServiceAvailability;
 
-// Concrete Decorator for Plumber rating functionality
+// Concrete Decorator for Plumber storing rating in database functionality
 public class PlumberRatingDecorator extends RatingDecorator {
     public PlumberRatingDecorator(ServiceProvider serviceProvider) {
         super(serviceProvider);
@@ -10,12 +10,7 @@ public class PlumberRatingDecorator extends RatingDecorator {
 
     @Override
     public float rate(String serviceProviderName, ServiceAvailability proxy) {
-        // Call the rate method of the wrapped component
         float rating = super.rate(serviceProviderName, proxy);
-
-        // Add additional functionality (if any) before or after calling the wrapped component's method
-
-        // For example, you could store the rating in the database
         System.out.println("Rating for Plumber " + serviceProviderName + " is: " + rating);
         System.out.println("Storing rating in the database...");
         System.out.println(proxy.changeRating(serviceProviderName, rating));

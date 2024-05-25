@@ -1,6 +1,8 @@
 package builder;
 
 
+import proxy.ServiceAvailability;
+
 import java.util.Date;
 // InvoiceBuilder class to construct Invoice objects
 public class InvoiceBuilder implements Builder {
@@ -13,18 +15,18 @@ public class InvoiceBuilder implements Builder {
 
     // Setters for invoice attributes
     @Override
-    public void buildName() {
-        invoice.setName("Customer Name");
+    public void buildName(String name) {
+        invoice.setName(name);
     }
 
     @Override
-    public void buildServiceProviderName() {
-        invoice.setServiceProviderName("Service Provider Name");
+    public void buildServiceProviderName(String ServiceProviderName) {
+        invoice.setServiceProviderName(ServiceProviderName);
     }
 
     @Override
-    public void buildService() {
-        invoice.setService("Service Name");
+    public void buildService(String service) {
+        invoice.setService(service);
     }
 
     @Override
@@ -33,8 +35,9 @@ public class InvoiceBuilder implements Builder {
     }
 
     @Override
-    public void buildPrice() {
-        invoice.setPrice(100); // Example price
+    public void buildPrice(ServiceAvailability proxy, String ServiceProviderName) {
+        int price = proxy.getPrice(ServiceProviderName);
+        invoice.setPrice(price);
     }
 
     // Method to build the Invoice object

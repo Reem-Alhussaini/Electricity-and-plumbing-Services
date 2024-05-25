@@ -15,7 +15,7 @@ public class RealDataBase implements ServiceAvailability {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/AnwarDB?user=root";
     private static final String USERNAME = "root";
     //change the password to your password
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "Ar@121963";
     private static final String DATABASE_NAME = "AnwarDB";
 
 
@@ -228,7 +228,6 @@ public class RealDataBase implements ServiceAvailability {
 
 //-------------------------------------------------------------------------------------------------
     public String changeAvailability(String name) {
-        System.out.println("changing availability for "+name+"...");
 
         try (Connection con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement statement = con.prepareStatement("UPDATE technician_info SET available = ? WHERE name = ?")) {
@@ -240,6 +239,7 @@ public class RealDataBase implements ServiceAvailability {
             int rowsAffected = statement.executeUpdate(); // Use executeUpdate() for UPDATE query
 
             if (rowsAffected > 0) {
+                System.out.println("changing availability for "+name+"...");
                 return "State changed";
             } else {
                 return "No technician found with the given name";
